@@ -26,7 +26,7 @@ def scrape_soham_jobs_national():
                 search_term=query,
                 location="USA", 
                 results_wanted=25,    # Increased because USA is a huge market
-                hours_old=48,         # 48 hours for maximum freshness
+                hours_old=24,         #  hours old, can be changed.
                 country_around="USA",
                 is_remote=False,      # Set to False to get BOTH on-site and remote
             )
