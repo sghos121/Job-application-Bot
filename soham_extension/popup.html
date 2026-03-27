@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body { width: 300px; padding: 15px; font-family: sans-serif; }
+    input { width: 100%; margin-bottom: 10px; padding: 5px; }
+    button { width: 100%; background: #0073b1; color: white; border: none; padding: 10px; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <h3>Soham's Profile</h3>
+  <input type="text" id="firstName" placeholder="First Name" value="Soham">
+  <input type="text" id="lastName" placeholder="Last Name" value="Ghosh">
+  <input type="text" id="email" placeholder="Email" value="ghoshsoham94.4@gmail.com">
+  <input type="text" id="phone" placeholder="Phone" value="623-275-0783">
+  <input type="text" id="linkedin" placeholder="https://www.linkedin.com/in/soham-ghosh-92b867274/">
+  <input type="text" id="github" placeholder="https://github.com/sghos121L">
+  <button id="save">Save & Fill Form</button>
+
+  <script>
+    document.getElementById('save').addEventListener('click', () => {
+      const data = {
+        firstName: document.getElementById('firstName').value,
+        lastName: document.getElementById('lastName').value,
+        email: document.getElementById('email').value,
+        phone: document.getElementById('phone').value,
+        linkedin: document.getElementById('linkedin').value,
+        github: document.getElementById('github').value
+      };
+      
+      // Save to Chrome storage
+      chrome.storage.local.set({sohamData: data}, () => {
+        // Tell the content script to fill the page
+        chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
+          chrome.tabs.sendMessage(tabs[0].id, {action: "fillForm"});
+        });
+      });
+    });
+  </script>
+</body>
+</html>
